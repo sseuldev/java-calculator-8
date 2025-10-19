@@ -19,16 +19,7 @@ public class Separator {
         if (customSeparator == null) {
             return input.split(BASIC_SEPARATOR);
         }
-
-        String target;
-
-        if (customSeparator.isEmpty()) {
-            target = input.substring(4);
-        }
-        else {
-            target = input.substring(5);
-        }
-
+        String target = input.substring(5);
         return target.split(BASIC_SEPARATOR + "|" + customSeparator);
     }
 
@@ -55,7 +46,7 @@ public class Separator {
     }
 
     private void validateNumOfSeparator(String separator) {
-        if (separator.length() > 1) {
+        if (separator.length() != 1) {
             throw new IllegalArgumentException(INVALID_CUSTOM_SEPARATOR_LENGTH);
         }
     }

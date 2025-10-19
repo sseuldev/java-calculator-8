@@ -35,7 +35,7 @@ public class SeparatorTest {
 
     @DisplayName("빈 문자열이 들어간 경우 처리 성공")
     @ParameterizedTest
-    @ValueSource(strings = {"1,:3", "//\\n123", "", "//+\\n1++3"})
+    @ValueSource(strings = {"1,:3", "", "//+\\n1++3"})
     void successEmptyTest(String input) {
         // given
 
@@ -60,6 +60,18 @@ public class SeparatorTest {
     void validateNumOfCustomTest() {
         // given
         String input = "//++\\n1,2,3";
+
+        // when, then
+        assertThatThrownBy(() -> new Separator(input))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("커스텀 구분자는 하나의 문자여야 합니다.");
+    }
+
+    @DisplayName("커스텀 구분자가 빈 문자인 경우 : 예외 발생")
+    @Test
+    void validateCustomIsNullTest() {
+        // given
+        String input = "//\\n12,3";
 
         // when, then
         assertThatThrownBy(() -> new Separator(input))
